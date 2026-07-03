@@ -1,3 +1,4 @@
 [tools]
 python = "3.13"
 uv = "latest"
+kubeconform = "0.8.0"
