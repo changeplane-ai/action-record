@@ -3,10 +3,8 @@
   "checkpoint_id": "e466d15d65db",
   "strategy": "manual-commit",
   "branch": "main",
-  "checkpoints_count": 0,
-  "files_touched": [
-    "docs/adr/0004-example-is-generated-not-written.md"
-  ],
+  "checkpoints_count": 1,
+  "files_touched": null,
   "sessions": [
     {
       "metadata": "/e4/66d15d65db/0/metadata.json",
@@ -16,10 +14,10 @@
     }
   ],
   "token_usage": {
-    "input_tokens": 14,
-    "cache_creation_tokens": 4365,
-    "cache_read_tokens": 399230,
-    "output_tokens": 3251,
-    "api_call_count": 7
+    "input_tokens": 4385,
+    "cache_creation_tokens": 42842,
+    "cache_read_tokens": 1975729,
+    "output_tokens": 22151,
+    "api_call_count": 44
   }
 }
