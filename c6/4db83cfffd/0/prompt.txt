@@ -1,0 +1,39 @@
+# Prompt 2: The validator CLI
+
+IMPORTANT: start this Claude Code session inside
+/Users/sbigelow/Workspace/action-record so Entire.io captures it.
+Confirm capture is active before the first commit.
+
+Add the validator to action-record. One command, one job: take a
+record as JSON, say whether it is valid, and say exactly why not.
+
+## src/action_record/cli.py
+A single command: `action-record validate <path.json>` (also accepts
+stdin via `-`). Behavior:
+- Valid: print one line — "valid: <intent>" — exit 0.
+- Invalid: print each Pydantic error as one line — field path,
+  constraint, permitted values where applicable — exit 1.
+- Unreadable/not-JSON: clear one-line error, exit 2.
+Use argparse from the stdlib. No click, no rich, no color. The
+output must be useful in a CI log, which means plain text.
+
+Wire the entry point in pyproject ([project.scripts]).
+
+## tests/test_cli.py
+Drive the CLI via subprocess (uv run action-record validate ...):
+valid file exits 0 with the intent echoed; invalid file exits 1 and
+names the failing field; malformed JSON exits 2. Use tmp_path
+fixtures, no fixture files on disk yet.
+
+## ADR
+0003-cli-plain-text-contract.md: the validator's output is a
+contract — plain text, one error per line, meaningful exit codes —
+because the primary consumer is a CI log, not a terminal human.
+Under 40 lines.
+
+## Commits
+(1) CLI + tests, (2) ADR. Plain messages, do not push. Clean up all
+pytest artifacts (.pytest_cache, __pycache__) after the verification
+runs; add them to .gitignore if not already covered. Report
+passing pytest output and confirm this session appears in the
+entire/checkpoints/v1 branch.
