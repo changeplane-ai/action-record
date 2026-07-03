@@ -1,0 +1,51 @@
+<ide_opened_file>The user opened the file /Users/sbigelow/Workspace/action-record/src/action_record/schema.py in the IDE. This may or may not be related to the current task.</ide_opened_file>
+# Prompt 3: The example record
+
+IMPORTANT: start this session inside
+/Users/sbigelow/Workspace/action-record so Entire.io captures it.
+Confirm capture is active before the first commit.
+
+Add the demonstrable example: a real tool call, wrapped so it emits
+a valid ActionRecord. This is what the README will point at.
+
+## The real tool call
+Vendor ONE manifest from bigelow/kubernetes-2026 at a pinned SHA
+into examples/fixtures/ (the DRA ResourceClaimTemplate is the
+natural pick — it has history). Record provenance in
+examples/fixtures/PROVENANCE.md, same format as evals-in-ci.
+Add kubeconform to mise.toml as a pinned tool.
+
+## examples/generate_record.py
+A small script (stdlib + the package itself, nothing else) that:
+1. Runs kubeconform against the fixture via subprocess.
+2. Builds an ActionRecord from the run: intent ("validate vendored
+   manifest against Kubernetes schemas"), actor
+   ("examples/generate_record.py"), context_used (fixture path +
+   provenance SHA), tool_called ("kubeconform"), policy_decision
+   "allowed", change_summary, evidence (tests: actual kubeconform
+   output summary, risk "low", blast_radius "none — read-only
+   validation", rollback "n/a — no change made"), outcome "applied".
+3. Writes examples/record.json and validates it by invoking the
+   real CLI (subprocess: action-record validate), not by importing
+   the validation function — the example must exercise the public
+   contract.
+4. Prints the CLI's output.
+The committed examples/record.json must be the actual output of a
+real run — do not hand-write it.
+
+## tests/test_example.py
+One test: regenerate the record in tmp_path and confirm the CLI
+validates it with exit 0. This keeps the example from rotting.
+
+## ADR
+0004-example-is-generated-not-written.md: the example record is
+produced by running the generator against a real tool call, never
+edited by hand — a hand-written example would be exactly the kind
+of unverified claim this project exists to prevent. Under 40 lines.
+
+## Commits
+(1) fixture + provenance, (2) generator + record + test, (3) ADR.
+Plain messages, do not push. Clean up all pytest artifacts
+(.pytest_cache, __pycache__) after verification; confirm .gitignore
+covers them. Report passing pytest output, the record.json contents,
+and checkpoint confirmation for this session.
