@@ -1,5 +1,7 @@
 # action-record
 
+[![ci](https://github.com/changeplane-ai/action-record/actions/workflows/ci.yml/badge.svg)](https://github.com/changeplane-ai/action-record/actions/workflows/ci.yml)
+
 A structured, validatable record of agent work — the missing object between
 "the agent did something" and "we can trust what the agent did."
 
@@ -23,10 +25,9 @@ are argued in [ADR 0001](docs/adr/0001-record-shape-and-field-set.md) and
 
 ## The validator
 
-`action-record validate <path.json>` (or `-` for stdin) prints plain text,
-one Pydantic error per line, and exits 0 (valid), 1 (invalid), or 2
-(unreadable / not JSON). The output is a contract for CI logs, not a terminal
-UI — see [ADR 0003](docs/adr/0003-cli-plain-text-contract.md).
+`action-record validate <path.json>` (or `-` for stdin) prints plain text, one
+Pydantic error per line, and exits 0 (valid), 1 (invalid), or 2 (unreadable / not
+JSON). The output is a CI-log contract, not a terminal UI — see [ADR 0003](docs/adr/0003-cli-plain-text-contract.md).
 
 ```
 $ uv run action-record validate examples/record.json
