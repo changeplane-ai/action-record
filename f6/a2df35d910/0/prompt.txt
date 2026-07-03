@@ -1,0 +1,55 @@
+# Prompt 4: README, CI, publish
+
+IMPORTANT: start this session inside
+/Users/sbigelow/Workspace/action-record so Entire.io captures it.
+Confirm capture is active before the first commit.
+
+Finish action-record and publish it under the changeplane-ai org.
+
+## .github/workflows/ci.yml
+Same shape as bigelow/evals-in-ci: one workflow, one job, push and
+pull_request to main. checkout and jdx/mise-action pinned to full
+commit SHAs with version tags in comments, mise-action auto-install
+off, explicit `mise install`, then `mise run test`. Readable in one
+screen. Add a `test` task to mise.toml if not already present
+(uv run pytest).
+
+## README.md
+Replace the stub. Prose, first person, claims sized to evidence,
+under 70 lines:
+1. What this is — a structured, validatable record of agent work:
+   what was intended, what was consulted, what was called, what
+   policy allowed it, what evidence supports it, what rollback means.
+   The missing object between "the agent did something" and "we can
+   trust what the agent did."
+2. The schema — name the fields briefly, point to schema.py and
+   ADRs 0001/0002.
+3. The validator — the CLI contract, one example invocation with
+   its output, point to ADR 0003.
+4. The example — examples/record.json is generated from a real
+   kubeconform run against a manifest vendored at a pinned SHA,
+   never hand-written; point to generate_record.py and ADR 0004.
+5. Run it — mise install, mise run test, and the generator command.
+6. Evidence trail — Entire.io checkpoints; scope the claim honestly:
+   commit-to-checkpoint mapping is complete from <first SHA of the
+   prompt-3 session's commits> onward (earlier history was rewritten
+   for author identity before publish; the orphaned checkpoints
+   remain on the branch as real session transcripts).
+7. Status — early; the schema will change; Changeplane context in
+   one sentence: this is the first public piece of Changeplane
+   ("Trust every machine-generated change").
+8. License — Apache 2.0. Add the LICENSE file.
+Add the CI badge under the title once the repo exists.
+
+## Publish
+- Create the public repo changeplane-ai/action-record. Description:
+  "A structured, validatable record of agent work — schema,
+  validator, and a real generated example."
+- Push main and the entire/checkpoints/v1 branch.
+- Confirm the Actions run is green and the badge renders.
+
+## Commits
+(1) CI workflow, (2) README + LICENSE, (3) badge. Plain messages.
+Clean up all pytest artifacts (.pytest_cache, __pycache__) after
+verification; confirm .gitignore covers them. Report the repo URL,
+Actions run URL, and checkpoint confirmation for this session.
