@@ -1,0 +1,20 @@
+{
+  "intent": "validate vendored manifest against Kubernetes schemas",
+  "actor": "examples/generate_record.py",
+  "context_used": [
+    "examples/fixtures/dra-deviceclass-resourceclaim.yaml",
+    "examples/fixtures/PROVENANCE.md@3be18b5107cf412236f2a6a56da8bd630b81c7c0"
+  ],
+  "proposed_action": "Run kubeconform -summary against examples/fixtures/dra-deviceclass-resourceclaim.yaml",
+  "tool_called": "kubeconform",
+  "policy_decision": "allowed",
+  "change_summary": "Validated the vendored DRA manifest against Kubernetes schemas; every resource passed.",
+  "evidence": {
+    "tests": "kubeconform -summary examples/fixtures/dra-deviceclass-resourceclaim.yaml — Summary: 3 resources found in 1 file - Valid: 3, Invalid: 0, Errors: 0, Skipped: 0",
+    "risk": "low",
+    "blast_radius": "none — read-only validation",
+    "rollback": "n/a — no change made"
+  },
+  "outcome": "applied",
+  "created_at": "2026-07-03T16:58:38.382065Z"
+}
